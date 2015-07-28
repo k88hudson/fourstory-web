@@ -20,7 +20,7 @@ class FSApiController{
 
 	_fetchNext250(offset, lastCheckinDate, resolve, reject) {
 		const xhr = new XMLHttpRequest();
-		const url = `https://api.foursquare.com/v2/users/self/checkins?oauth_token=${this.token}&sort=oldestfirst&offset=${offset}&v=20150404&m=swarm&limit=250`
+		const url = `https://api.foursquare.com/v2/users/self/checkins?oauth_token=${this.token}&sort=oldestfirst&afterTimestamp=${lastCheckinDate}&offset=${offset}&v=20150404&m=swarm&limit=250`
 	    xhr.open("GET", url);
 	    xhr.send(null);
 
@@ -46,7 +46,7 @@ class FSApiController{
 
 	getCheckinHistory(offset = 0){
 
-		var lastCheckinDate = window.localStorage.getItem(this.LAST_CHECKIN_KEY);
+		var lastCheckinDate = window.localStorage.getItem(this.LAST_CHECKIN_KEY) || 0;
 
 	    const promise = new Promise((resolve, reject)=>{
 

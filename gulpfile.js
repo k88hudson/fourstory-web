@@ -1,9 +1,9 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
 var watch = require('gulp-watch');
 var babel = require('gulp-babel');
 var rename = require('gulp-rename');
 var server = require('gulp-server-livereload');
+var cssnext = require('gulp-cssnext');
  
 gulp.task('webserver', function() {
   gulp.src('dist')
@@ -13,16 +13,16 @@ gulp.task('webserver', function() {
     }));
 });
 
-gulp.task('sass', function() {
-  return gulp.src('src/sass/*.scss')
-    .pipe(watch('src/sass/*.scss'))
-    .pipe(sass())
+gulp.task('css', function() {
+  return gulp.src('src/css/*.css')
+    .pipe(watch('src/css/*.css'))
+    .pipe(cssnext())
     .pipe(gulp.dest('dist/css'));
 });
 
 gulp.task('babel', function(){
-	return gulp.src('src/es6/*.es6')
-	.pipe(watch('src/es6/*.es6'))
+	return gulp.src('src/js/*.js')
+	.pipe(watch('src/js/*.js'))
 	.pipe(babel())
 	.pipe(rename({
 		extname: ".js"
@@ -37,11 +37,11 @@ gulp.task('html', function(){
 })
 
 gulp.task('default', ['watch','webserver']);
-gulp.task('watch',['sass','babel','html']);
+gulp.task('watch',['css','babel','html']);
 gulp.task('build', function(){
-	gulp.src('src/sass/*.scss').pipe(sass())
+	gulp.src('src/css/*.css').pipe(cssnext())
     .pipe(gulp.dest('dist/css'));
-    gulp.src('src/es6/*.es6').pipe(babel())
+    gulp.src('src/js/*.js').pipe(babel())
 	.pipe(rename({
 		extname: ".js"
 	}))

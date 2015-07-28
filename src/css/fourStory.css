@@ -1,5 +1,12 @@
+:root{
+	
+}
+
 *, *:before, *:after{
 	box-sizing: border-box;
 }
 
-#map { height: 90vh; }
+#map {
+	height: 90vh;
+}
+
